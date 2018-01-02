@@ -1,0 +1,30 @@
+
+linux0.11
+
+rom bios(0xffff0)
+1. check mainche state
+2. initial bios interrupt vector
+3. load the first sector(512k) of bootable device to mem(0x7c00) 
+	and jump to there 
+
+1. bootsect.s
+1.1 migrate self to high mem(0x90000)
+1.2 load the following two sectors(setup.s) of bootable device to mem(0x90200)
+1.3 load the system image of kernel to 0x1000
+1.4 get the Root device(may be different from bootable device)
+
+2. setup.s
+2.1 get some system info by bios int vector
+2.2 migrate the system image from 0x1000 to 0x00000
+2.3 preparation to get into protected mode
+2.3.1 gdt/idt
+2.3.2 8259
+2.3.3 open a20
+2.3.4 cr0 real/protect switch
+
+3. head.s
+3.1 setup gdt/idt
+3.2 setup paging
+
+
+
